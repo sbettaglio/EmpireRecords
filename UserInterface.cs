@@ -33,6 +33,7 @@ namespace EmpireRecords
       var name = Console.ReadLine().ToLower();
       //validates band name exists in the database and returns correct band name if initial input was incorrect
       name = tracker.BandInSystem(name);
+      //method that takes band name and returns band id
       var bandId = tracker.ReturnBandId(name);
       Console.WriteLine($"What is the title?");
       var title = Console.ReadLine().ToLower();
@@ -40,8 +41,11 @@ namespace EmpireRecords
       var releasedDate = DateTime.Parse(Console.ReadLine());
       Console.WriteLine($"Does it have explicit content?");
       var explicitContent = bool.Parse(Console.ReadLine());
+      //calls method that creates the new record
       tracker.NewRecord(bandId, title, releasedDate, explicitContent);
+      //method that takes album name and returns album id
       var albumId = tracker.ReturnAlbumId(title);
+      // calls methos that inputs songs
       NewSongInput(albumId);
     }
     public void NewSongInput(int albumId)
@@ -55,8 +59,10 @@ namespace EmpireRecords
       var length = TimeSpan.Parse(Console.ReadLine());
       Console.WriteLine($"What's the genre?");
       var genre = Console.ReadLine().ToLower();
+      //calls method that adds a new song
       tracker.NewSong(albumId, songTitle, length, genre, lyrics);
       var moreSongs = true;
+      //keeps running and adding songs until the user says not to
       while (moreSongs)
       {
         Console.WriteLine($"Add another song? y/n");
@@ -84,7 +90,17 @@ namespace EmpireRecords
         }
       }
     }
-
+    public void FireBandInput()
+    {
+      var tracker = new DatabaseTracker();
+      //select what band you're firing
+      Console.WriteLine($"What band are you fireing?");
+      var name = Console.ReadLine().ToLower();
+      //verifies band is in the system
+      name = tracker.BandInSystem(name);
+      //calls methos to fire the band
+      tracker.FireBand(name);
+    }
 
   }
 }

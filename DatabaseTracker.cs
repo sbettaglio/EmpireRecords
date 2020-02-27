@@ -97,6 +97,14 @@ namespace EmpireRecords
       db.Bands.Add(newBand);
       db.SaveChanges();
     }
+    public void FireBand(string name)
+    {
+      var db = new DatabaseContext();
+      var fireBand = db.Bands.First(band => band.Name.ToLower() == name);
+      fireBand.IsSigned = false;
+      db.SaveChanges();
+
+    }
   }
 
 }

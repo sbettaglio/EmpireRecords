@@ -29,7 +29,11 @@ namespace EmpireRecords
         {
           // Calls new record input method
           user.NewRecordInput();
-
+        }
+        else if (choice == "fire")
+        {
+          // Calls methord to fire a band from the label
+          user.FireBandInput();
         }
         else if (choice == "quit")
         {
@@ -39,4 +43,5 @@ namespace EmpireRecords
       }
     }
   }
+
 }
