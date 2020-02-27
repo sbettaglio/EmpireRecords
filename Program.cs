@@ -35,6 +35,11 @@ namespace EmpireRecords
           // Calls methord to fire a band from the label
           user.FireBandInput();
         }
+        else if (choice == "re")
+        {
+          //calls method to re-sign a band
+          user.ReSignInput();
+        }
         else if (choice == "quit")
         {
           sexyRexy = false;

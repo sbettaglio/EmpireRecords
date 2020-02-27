@@ -101,6 +101,17 @@ namespace EmpireRecords
       //calls methos to fire the band
       tracker.FireBand(name);
     }
+    public void ReSignInput()
+    {
+      var tracker = new DatabaseTracker();
+      //select what band you're re-signing
+      Console.WriteLine($"What band are you re-signing?");
+      var name = Console.ReadLine().ToLower();
+      //verifies band is in the system
+      name = tracker.BandInSystem(name);
+      //calls methos to re-sign the band
+      tracker.ReSignBand(name);
+    }
 
   }
 }

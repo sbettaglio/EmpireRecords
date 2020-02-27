@@ -105,6 +105,13 @@ namespace EmpireRecords
       db.SaveChanges();
 
     }
-  }
+    public void ReSignBand(string name)
+    {
+      var db = new DatabaseContext();
+      var reSignBand = db.Bands.First(band => band.Name.ToLower() == name);
+      reSignBand.IsSigned = true;
+      db.SaveChanges();
+    }
 
+  }
 }
