@@ -11,6 +11,7 @@ namespace EmpireRecords
       var tracker = new DatabaseTracker();
       var user = new UserInterface();
       var sexyRexy = true;
+      Console.WriteLine("on the branch");
       Console.WriteLine($"Welcome to Empire Records!");
       while (sexyRexy)
       {
