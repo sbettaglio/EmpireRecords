@@ -112,6 +112,16 @@ namespace EmpireRecords
       reSignBand.IsSigned = true;
       db.SaveChanges();
     }
+    public string ViewChoiceValidation(string viewChoice)
+    {
+      while (viewChoice != "all" && viewChoice != "date" && viewChoice != "songs" && viewChoice != "are" && viewChoice != "not")
+      {
+        Console.WriteLine($"Invalid input. Please input(ALL), (DATE,) (SONGS), (ARE) or (NOT) ");
+        viewChoice = Console.ReadLine().ToLower();
+        return viewChoice;
+      }
+      return viewChoice;
+    }
 
   }
 }

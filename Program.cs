@@ -32,13 +32,18 @@ namespace EmpireRecords
         }
         else if (choice == "fire")
         {
-          // Calls methord to fire a band from the label
+          // Calls method to fire a band from the label
           user.FireBandInput();
         }
         else if (choice == "re")
         {
           //calls method to re-sign a band
           user.ReSignInput();
+        }
+        else if (choice == "view")
+        {
+          //Calls method containing view submenu
+          user.ViewMenu();
         }
         else if (choice == "quit")
         {

@@ -4,6 +4,10 @@ namespace EmpireRecords
 {
   public class UserInterface
   {
+    // public static void Tracker()
+    // {
+    //     pu
+    // }
     public void SignBandInput()
     {
       var tracker = new DatabaseTracker();
@@ -111,6 +115,35 @@ namespace EmpireRecords
       name = tracker.BandInSystem(name);
       //calls methos to re-sign the band
       tracker.ReSignBand(name);
+    }
+    public void ViewMenu()
+    {
+      var tracker = new DatabaseTracker();
+      //give user choices on what to view
+      Console.WriteLine($"Do you want to view (ALL) albums for a band, view every album ordered by release (DATE), view an album with all its (SONGS), bands that (ARE) signed or bands that are (NOT) signed?");
+      var viewChoice = Console.ReadLine().ToLower();
+      //validate user input choice is correct
+      viewChoice = tracker.ViewChoiceValidation(viewChoice);
+      if (viewChoice == "all")
+      {
+
+      }
+      else if (viewChoice == "date")
+      {
+
+      }
+      else if (viewChoice == "songs")
+      {
+
+      }
+      else if (viewChoice == "are")
+      {
+
+      }
+      else if (viewChoice == "not")
+      {
+
+      }
     }
 
   }
