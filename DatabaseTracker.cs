@@ -122,6 +122,23 @@ namespace EmpireRecords
       }
       return viewChoice;
     }
+    public bool HasAnAlbum(int bandId)
+    {
+      var db = new DatabaseContext();
+      var hasAnAlbum = db.Albums.Any(album => album.BandId == bandId);
+      return hasAnAlbum;
+    }
+    public void ViewBandAlbumList(int bandId)
+    {
+      var db = new DatabaseContext();
+      var albumList = db.Albums.Where(album => album.BandId == bandId);
+      foreach (var b in albumList)
+      {
+        Console.WriteLine($"{b.Title}, released on: {b.ReleaseDate}, is explicit: {b.IsExplicit}");
+      }
+
+    }
 
   }
 }
+

@@ -102,7 +102,7 @@ namespace EmpireRecords
       var name = Console.ReadLine().ToLower();
       //verifies band is in the system
       name = tracker.BandInSystem(name);
-      //calls methos to fire the band
+      //calls method to fire the band
       tracker.FireBand(name);
     }
     public void ReSignInput()
@@ -126,6 +126,27 @@ namespace EmpireRecords
       viewChoice = tracker.ViewChoiceValidation(viewChoice);
       if (viewChoice == "all")
       {
+        //ask user what band they want to view an album list of
+        Console.WriteLine($"What band do you want to see an album list for?");
+        var name = Console.ReadLine().ToLower();
+        //verifies band is actually in the system
+        name = tracker.BandInSystem(name);
+        //calls method to return album id. User doesn't see this
+        var bandId = tracker.ReturnBandId(name);
+        //calls method to verify if the band has any albums
+        var hasAnAlbum = tracker.HasAnAlbum(bandId);
+        if (hasAnAlbum == false)
+        {
+          //displays if the band doesn't have any albums
+          Console.Write($"This band doesn't have any albums.");
+        }
+        else if (hasAnAlbum == true)
+        {
+          //calls method to display all the band's albums
+          Console.WriteLine($"These are all of {name}'s albums. ");
+          tracker.ViewBandAlbumList(bandId);
+        }
+
 
       }
       else if (viewChoice == "date")
