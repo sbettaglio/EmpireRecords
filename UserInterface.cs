@@ -154,7 +154,15 @@ namespace EmpireRecords
       }
       else if (viewChoice == "songs")
       {
-
+        //ask what album the user wants to view all the songs for
+        Console.WriteLine($"What album do you want to see the song list for?");
+        var title = Console.ReadLine().ToLower();
+        //validates the album is in the system
+        title = tracker.AlbumInSystem(title);
+        var albumId = tracker.ReturnAlbumId(title);
+        //calls method that returns all the albums ordered by release date
+        Console.WriteLine($"Below is the track list for {title}");
+        tracker.SongsInAlbum(albumId);
       }
       else if (viewChoice == "are")
       {

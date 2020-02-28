@@ -147,6 +147,32 @@ namespace EmpireRecords
         Console.WriteLine($"{b.Title}, released on: {b.ReleaseDate}, is explicit: {b.IsExplicit}");
       }
     }
+    public string AlbumInSystem(string title)
+    {
+      var db = new DatabaseContext();
+      var albumInSystem = db.Albums.Any(album => album.Title == title);
+      while (albumInSystem == false)
+      {
+        Console.WriteLine($"That {title} is not in the system. Please try again");
+        title = Console.ReadLine().ToLower();
+        albumInSystem = db.Albums.Any(album => album.Title == title);
+        return title;
+      }
+      if (albumInSystem == true)
+      {
+        return title;
+      }
+      return title;
+    }
+    public void SongsInAlbum(int albumId)
+    {
+      var db = new DatabaseContext();
+      var displaySongs = db.Songs.Where(song => song.AlbumId == albumId);
+      foreach (var s in displaySongs)
+      {
+        Console.WriteLine($"{s.Title}, length:{s.Length}, genre: {s.Genre}, catchiest lyric: {s.Lyrics} ");
+      }
+    }
 
   }
 }
