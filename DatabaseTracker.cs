@@ -140,7 +140,8 @@ namespace EmpireRecords
       {
         Console.WriteLine($"{b.Title}, released on: {b.ReleaseDate}, is explicit: {b.IsExplicit}");
       }
-
+      Console.WriteLine("Press enter to exit.");
+      Console.ReadLine();
     }
     public void AlbumsByDate()
     {
@@ -150,6 +151,8 @@ namespace EmpireRecords
       {
         Console.WriteLine($"{b.Title}, released on: {b.ReleaseDate}, is explicit: {b.IsExplicit}");
       }
+      Console.WriteLine("Press enter to exit.");
+      Console.ReadLine();
     }
     public string AlbumInSystem(string title)
     {
@@ -176,6 +179,8 @@ namespace EmpireRecords
       {
         Console.WriteLine($"{s.Title}, length:{s.Length}, genre: {s.Genre}, catchiest lyric: {s.Lyrics} ");
       }
+      Console.WriteLine("Press enter to exit");
+      Console.ReadLine();
     }
     public void SignedBandList()
     {
@@ -185,6 +190,8 @@ namespace EmpireRecords
       {
         Console.WriteLine($"{b.Name}");
       }
+      Console.WriteLine("Press enter to exit");
+      Console.ReadLine();
     }
     public void UnSignedBandList()
     {
@@ -194,6 +201,8 @@ namespace EmpireRecords
       {
         Console.WriteLine($"{b.Name}");
       }
+      Console.WriteLine("Press enter to exit");
+      Console.ReadLine();
     }
 
   }

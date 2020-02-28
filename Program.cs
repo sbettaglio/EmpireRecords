@@ -1,6 +1,7 @@
 ﻿using System;
 using EmpireRecords.Models;
 using System.Linq;
+using ConsoleTools;
 
 namespace EmpireRecords
 {
@@ -10,49 +11,47 @@ namespace EmpireRecords
     {
       var tracker = new DatabaseTracker();
       var user = new UserInterface();
-      var sexyRexy = true;
-      Console.WriteLine("on the branch");
+      //var sexyRexy = true;
       Console.WriteLine($"Welcome to Empire Records!");
-      while (sexyRexy)
-      {
-        //asks user what they want to do?
-        Console.WriteLine($"Do you want to (SIGN) a band, (PRODUCE) an album, (FIRE) a band, (RE)-sign a band, (VIEW) our database or (QUIT) the program?");
-        var choice = Console.ReadLine().ToLower();
-        //sends to validation method. returns valid input if not a valid initial input
-        choice = tracker.GreetingInput(choice);
-        if (choice == "sign")
+      var subMenu = new ConsoleMenu(args, level: 1)
+        .Add("All albums for a band", () => user.ViewAllInput())
+        .Add("Every album sorted by release date", () => tracker.AlbumsByDate())
+        .Add("An album with all it's songs", () => user.SongsInAlbumInput())
+        .Add("Signed Bands", () => tracker.SignedBandList())
+        .Add("Bands not signed", () => tracker.UnSignedBandList())
+        .Add("Sub_Close", ConsoleMenu.Close)
+    .Configure(config =>
         {
-          //call Sign band input method
-          user.SignBandInput();
-
-        }
-        else if (choice == "produce")
+          config.Selector = "--> ";
+          config.EnableFilter = true;
+          config.Title = "Submenu";
+          config.EnableBreadcrumb = true;
+          config.WriteBreadcrumbAction = titles => Console.WriteLine(string.Join(" / ", titles));
+        });
+      var menu = new ConsoleMenu(args, level: 0)
+        .Add("Sign a band", () => user.SignBandInput())
+        .Add("New album", () => user.NewRecordInput())
+        .Add("Fire a band", () => user.FireBandInput())
+        .Add("Re-sign a band", () => user.ReSignInput())
+        .Add("View database", subMenu.Show)
+        .Add("Exit", () => Environment.Exit(0))
+        .Configure(config =>
         {
-          // Calls new record input method
-          user.NewRecordInput();
-        }
-        else if (choice == "fire")
-        {
-          // Calls method to fire a band from the label
-          user.FireBandInput();
-        }
-        else if (choice == "re")
-        {
-          //calls method to re-sign a band
-          user.ReSignInput();
-        }
-        else if (choice == "view")
-        {
-          //Calls method containing view submenu
-          user.ViewMenu();
-        }
-        else if (choice == "quit")
-        {
-          sexyRexy = false;
-        }
-
-      }
+          config.Selector = "--> ";
+          config.EnableFilter = true;
+          config.Title = "Main menu";
+          config.EnableWriteTitle = true;
+          config.EnableBreadcrumb = true;
+        });
+      menu.Show();
     }
   }
-
 }
+
+
+
+
+
+
+
+

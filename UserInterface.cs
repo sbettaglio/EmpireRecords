@@ -116,66 +116,43 @@ namespace EmpireRecords
       //calls methos to re-sign the band
       tracker.ReSignBand(name);
     }
-    public void ViewMenu()
+
+    public void SongsInAlbumInput()
     {
       var tracker = new DatabaseTracker();
-      //give user choices on what to view
-      Console.WriteLine($"Do you want to view (ALL) albums for a band, view every album ordered by release (DATE), view an album with all its (SONGS), bands that (ARE) signed or bands that are (NOT) signed?");
-      var viewChoice = Console.ReadLine().ToLower();
-      //validate user input choice is correct
-      viewChoice = tracker.ViewChoiceValidation(viewChoice);
-      if (viewChoice == "all")
+      //ask what album the user wants to view all the songs for
+      Console.WriteLine($"What album do you want to see the song list for?");
+      var title = Console.ReadLine().ToLower();
+      //validates the album is in the system
+      title = tracker.AlbumInSystem(title);
+      //finds album id for for title user requested. user doesnt see this
+      var albumId = tracker.ReturnAlbumId(title);
+      //calls method that returns all the albums ordered by release date
+      Console.WriteLine($"Below is the track list for {title}");
+      tracker.SongsInAlbum(albumId);
+    }
+    public void ViewAllInput()
+    {
+      var tracker = new DatabaseTracker();
+      //ask user what band they want to view an album list of
+      Console.WriteLine($"What band do you want to see an album list for?");
+      var name = Console.ReadLine().ToLower();
+      //verifies band is actually in the system
+      name = tracker.BandInSystem(name);
+      //calls method to return album id. User doesn't see this
+      var bandId = tracker.ReturnBandId(name);
+      //calls method to verify if the band has any albums
+      var hasAnAlbum = tracker.HasAnAlbum(bandId);
+      if (hasAnAlbum == false)
       {
-        //ask user what band they want to view an album list of
-        Console.WriteLine($"What band do you want to see an album list for?");
-        var name = Console.ReadLine().ToLower();
-        //verifies band is actually in the system
-        name = tracker.BandInSystem(name);
-        //calls method to return album id. User doesn't see this
-        var bandId = tracker.ReturnBandId(name);
-        //calls method to verify if the band has any albums
-        var hasAnAlbum = tracker.HasAnAlbum(bandId);
-        if (hasAnAlbum == false)
-        {
-          //displays if the band doesn't have any albums
-          Console.Write($"This band doesn't have any albums.");
-        }
-        else if (hasAnAlbum == true)
-        {
-          //calls method to display all the band's albums
-          Console.WriteLine($"These are all of {name}'s albums. ");
-          tracker.ViewBandAlbumList(bandId);
-        }
+        //displays if the band doesn't have any albums
+        Console.Write($"This band doesn't have any albums.");
       }
-      else if (viewChoice == "date")
+      else if (hasAnAlbum == true)
       {
-        //calls method to display all albums ordered by release date
-        tracker.AlbumsByDate();
-      }
-      else if (viewChoice == "songs")
-      {
-        //ask what album the user wants to view all the songs for
-        Console.WriteLine($"What album do you want to see the song list for?");
-        var title = Console.ReadLine().ToLower();
-        //validates the album is in the system
-        title = tracker.AlbumInSystem(title);
-        //finds album id for for title user requested. user doesnt see this
-        var albumId = tracker.ReturnAlbumId(title);
-        //calls method that returns all the albums ordered by release date
-        Console.WriteLine($"Below is the track list for {title}");
-        tracker.SongsInAlbum(albumId);
-      }
-      else if (viewChoice == "are")
-      {
-        Console.WriteLine($"These bands are signed with Empire Records");
-        //Calls method that displays bands that are signed
-        tracker.SignedBandList();
-      }
-      else if (viewChoice == "not")
-      {
-        Console.WriteLine($"These bands are signed with Empire Records");
-        //Calls method that displays bands that aren't signed
-        tracker.UnSignedBandList();
+        //calls method to display all the band's albums
+        Console.WriteLine($"These are all of {name}'s albums. ");
+        tracker.ViewBandAlbumList(bandId);
       }
     }
 
