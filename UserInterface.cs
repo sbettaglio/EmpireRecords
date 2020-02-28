@@ -14,7 +14,7 @@ namespace EmpireRecords
       //input all band info
       Console.WriteLine($"What's the band's name?");
       var name = Console.ReadLine();
-      // name = tracker.DuplicateEntry(name);
+      name = tracker.DuplicateEntry(name);
       Console.WriteLine($"Where are the from?");
       var countryOfOrigin = Console.ReadLine().ToLower();
       Console.WriteLine($"How many members?");
@@ -33,7 +33,7 @@ namespace EmpireRecords
     public void NewRecordInput()
     {
       var tracker = new DatabaseTracker();
-      Console.WriteLine($"What bad is producing a new record?");
+      Console.WriteLine($"What band is producing a new record?");
       var name = Console.ReadLine().ToLower();
       //validates band name exists in the database and returns correct band name if initial input was incorrect
       name = tracker.BandInSystem(name);

@@ -71,15 +71,19 @@ namespace EmpireRecords
       db.SaveChanges();
     }
 
-    // public string DuplicateEntry(string name)
-    // {
-    //   var db = new DatabaseContext();
-    //   var duplicateEntry = db.Bands.Any(b => b.Name == name);
-    //   while (duplicateEntry == true)
-    //   {
-    //     Console.WriteLine($"{name} is already in the system. Did you mean a different name?")
-    //   }
-    // }
+    public string DuplicateEntry(string name)
+    {
+      var db = new DatabaseContext();
+      var duplicateEntry = db.Bands.Any(b => b.Name == name);
+      while (duplicateEntry == true)
+      {
+        Console.WriteLine($"{name} is already in the system. Did you mean a different name?");
+        name = Console.ReadLine().ToLower();
+        duplicateEntry = db.Bands.Any(b => b.Name == name);
+        return name;
+      }
+      return name;
+    }
     public void SignBand(string name, string countryOfOrigin, int numberOfMembers, string website, string style, string personOfContact, string phoneNumber)
     {
       var db = new DatabaseContext();
