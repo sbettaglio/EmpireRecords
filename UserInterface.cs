@@ -159,6 +159,7 @@ namespace EmpireRecords
         var title = Console.ReadLine().ToLower();
         //validates the album is in the system
         title = tracker.AlbumInSystem(title);
+        //finds album id for for title user requested. user doesnt see this
         var albumId = tracker.ReturnAlbumId(title);
         //calls method that returns all the albums ordered by release date
         Console.WriteLine($"Below is the track list for {title}");
@@ -166,11 +167,15 @@ namespace EmpireRecords
       }
       else if (viewChoice == "are")
       {
-
+        Console.WriteLine($"These bands are signed with Empire Records");
+        //Calls method that displays bands that are signed
+        tracker.SignedBandList();
       }
       else if (viewChoice == "not")
       {
-
+        Console.WriteLine($"These bands are signed with Empire Records");
+        //Calls method that displays bands that aren't signed
+        tracker.UnSignedBandList();
       }
     }
 

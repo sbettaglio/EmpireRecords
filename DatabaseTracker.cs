@@ -173,6 +173,24 @@ namespace EmpireRecords
         Console.WriteLine($"{s.Title}, length:{s.Length}, genre: {s.Genre}, catchiest lyric: {s.Lyrics} ");
       }
     }
+    public void SignedBandList()
+    {
+      var db = new DatabaseContext();
+      var signedBands = db.Bands.Where(band => band.IsSigned == true);
+      foreach (var b in signedBands)
+      {
+        Console.WriteLine($"{b.Name}");
+      }
+    }
+    public void UnSignedBandList()
+    {
+      var db = new DatabaseContext();
+      var unsignedBands = db.Bands.Where(band => band.IsSigned == false);
+      foreach (var b in unsignedBands)
+      {
+        Console.WriteLine($"{b.Name}");
+      }
+    }
 
   }
 }
