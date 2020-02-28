@@ -146,12 +146,11 @@ namespace EmpireRecords
           Console.WriteLine($"These are all of {name}'s albums. ");
           tracker.ViewBandAlbumList(bandId);
         }
-
-
       }
       else if (viewChoice == "date")
       {
-
+        //calls method to display all albums ordered by release date
+        tracker.AlbumsByDate();
       }
       else if (viewChoice == "songs")
       {
@@ -168,4 +167,6 @@ namespace EmpireRecords
     }
 
   }
+
+
 }

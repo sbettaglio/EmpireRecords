@@ -138,6 +138,15 @@ namespace EmpireRecords
       }
 
     }
+    public void AlbumsByDate()
+    {
+      var db = new DatabaseContext();
+      var orderByDate = db.Albums.OrderByDescending(album => album.ReleaseDate);
+      foreach (var b in orderByDate)
+      {
+        Console.WriteLine($"{b.Title}, released on: {b.ReleaseDate}, is explicit: {b.IsExplicit}");
+      }
+    }
 
   }
 }
