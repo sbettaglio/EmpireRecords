@@ -91,6 +91,7 @@ namespace EmpireRecords
     public void NewSongInput(int albumId)
     {
       var tracker = new DatabaseTracker();
+      var genres = new List<string>();
       Console.WriteLine($"What is the title of the song?");
       var songTitle = Console.ReadLine().ToLower();
       Console.WriteLine($"What are the lyrics?");
@@ -99,10 +100,38 @@ namespace EmpireRecords
       var length = TimeSpan.Parse(Console.ReadLine());
       Console.WriteLine($"What's the genre?");
       var genre = Console.ReadLine().ToLower();
+      Console.WriteLine($"Does the song have more than one genre? y/n");
+      var moreGenres = Console.ReadLine().ToLower();
+      while (moreGenres != "y" && moreGenres != "n")
+      {
+        Console.WriteLine($"Invalid input. Please input (Y) or (N) ");
+        moreGenres = Console.ReadLine().ToLower();
+      }
+      if (moreGenres == "y")
+      {
+        var more = true;
+        while (more)
+        {
+          Console.WriteLine($"Please input another genre. once done input (DONE) ");
+          var addAnotherGenre = Console.ReadLine().ToLower();
+          if (addAnotherGenre == "done")
+          {
+            more = false;
+          }
+          else
+          {
+            genres.Add(addAnotherGenre);
+          }
+        }
+      }
       //calls method that adds a new song
       tracker.NewSong(albumId, songTitle, length, lyrics);
       var songId = tracker.ReturnSongId(songTitle);
       tracker.UpdateSongGenre(songId, genre);
+      foreach (var g in genres)
+      {
+        tracker.UpdateSongGenre(songId, g);
+      }
       var moreSongs = true;
       //keeps running and adding songs until the user says not to
       while (moreSongs)
@@ -116,6 +145,7 @@ namespace EmpireRecords
         }
         if (add == "y")
         {
+          var genres1 = new List<string>();
           Console.WriteLine($"What is the title of the song?");
           songTitle = Console.ReadLine().ToLower();
           Console.WriteLine($"What are the lyrics?");
@@ -124,8 +154,37 @@ namespace EmpireRecords
           length = TimeSpan.Parse(Console.ReadLine());
           Console.WriteLine($"What's the genre?");
           genre = Console.ReadLine().ToLower();
+          Console.WriteLine($"Does the song have more than one genre? y/n");
+          var moreGenres1 = Console.ReadLine().ToLower();
+          while (moreGenres1 != "y" && moreGenres1 != "n")
+          {
+            Console.WriteLine($"Invalid input. Please input (Y) or (N) ");
+            moreGenres1 = Console.ReadLine().ToLower();
+          }
+          if (moreGenres1 == "y")
+          {
+            var more = true;
+            while (more)
+            {
+              Console.WriteLine($"Please input another genre. once done input (DONE) ");
+              var addAnotherGenre = Console.ReadLine().ToLower();
+              if (addAnotherGenre == "done")
+              {
+                more = false;
+              }
+              else
+              {
+                genres1.Add(addAnotherGenre);
+              }
+            }
+          }
           tracker.NewSong(albumId, songTitle, length, lyrics);
+          songId = tracker.ReturnSongId(songTitle);
           tracker.UpdateSongGenre(songId, genre);
+          foreach (var g in genres1)
+          {
+            tracker.UpdateSongGenre(songId, g);
+          }
         }
         else if (add == "n")
         {
