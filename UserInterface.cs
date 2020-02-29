@@ -254,6 +254,50 @@ namespace EmpireRecords
       }
     }
 
+    public void NewMusicianInput()
+    {
+      var tracker = new DatabaseTracker();
+      Console.WriteLine($"What's the musician's name?");
+      var name = Console.ReadLine().ToLower();
+      Console.WriteLine($"What instrument does the musician play?");
+      var instrument = Console.ReadLine().ToLower();
+      tracker.AddNewMusician(name, instrument);
+      var musicianId = tracker.ReturnMusicianId(name);
+      Console.WriteLine($"Add the {name} to a band? y/n");
+      var addToBand = Console.ReadLine().ToLower();
+      while (addToBand != "y" && addToBand != "n")
+      {
+        Console.WriteLine($"Invalid input. Please input (Y) or (N)");
+        addToBand = Console.ReadLine().ToLower();
+      }
+      if (addToBand == "y")
+      {
+        AddNewMusicianToBandInput(name, musicianId);
+
+      }
+
+    }
+    public void AddNewMusicianToBandInput(string name, int musicianId)
+    {
+      var tracker = new DatabaseTracker();
+      Console.WriteLine($"What band are you adding {name} to?");
+      var bandName = Console.ReadLine().ToLower();
+      var bandId = tracker.ReturnBandId(bandName);
+      tracker.AddMusicianToBand(bandId, musicianId);
+
+    }
+    public void ExistingMusicianToBandInput()
+    {
+      var tracker = new DatabaseTracker();
+      Console.WriteLine($"What musician are you adding?");
+      var musicianName = Console.ReadLine().ToLower();
+      var musicianId = tracker.ReturnMusicianId(musicianName);
+      Console.WriteLine($"What band are you adding{musicianName} to?");
+      var bandName = Console.ReadLine().ToLower();
+      var bandId = tracker.ReturnBandId(bandName);
+      tracker.AddMusicianToBand(bandId, musicianId);
+    }
+
   }
 
 

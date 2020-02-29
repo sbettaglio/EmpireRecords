@@ -86,13 +86,35 @@ namespace EmpireRecords
       db.SongGenres.Add(songGenre);
       db.SaveChanges();
     }
-    // public void CheckGenreExists(string genre)
-    // {
-    //   var db = new DatabaseContext();
-    //   var genreExists = db.SongGenres.Any(g => g.Genre == genre);
-    //   if ()
 
-    // }
+    public void AddNewMusician(string name, string instrument)
+    {
+      var db = new DatabaseContext();
+      var newMusician = new Musician
+      {
+        Name = name,
+        Instrument = instrument
+      };
+      db.Musicians.Add(newMusician);
+      db.SaveChanges();
+    }
+    public void AddMusicianToBand(int bandId, int musicianId)
+    {
+      var db = new DatabaseContext();
+      var newBandMusician = new BandMusician
+      {
+        BandId = bandId,
+        MusicianId = musicianId,
+      };
+      db.BandMusicians.Add(newBandMusician);
+      db.SaveChanges();
+    }
+    public int ReturnMusicianId(string name)
+    {
+      var db = new DatabaseContext();
+      var musicianId = db.Musicians.First(musician => musician.Name == name);
+      return musicianId.Id;
+    }
 
     public string DuplicateEntry(string name)
     {
@@ -239,6 +261,7 @@ namespace EmpireRecords
       Console.WriteLine("Press enter to exit");
       Console.ReadLine();
     }
+
 
   }
 }

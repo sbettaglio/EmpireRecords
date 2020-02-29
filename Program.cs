@@ -33,6 +33,8 @@ namespace EmpireRecords
         .Add("New album", () => user.NewRecordInput())
         .Add("Fire a band", () => user.FireBandInput())
         .Add("Re-sign a band", () => user.ReSignInput())
+        .Add("Add a new musician", () => user.NewMusicianInput())
+        .Add("Add existing musician to new band", () => user.ExistingMusicianToBandInput())
         .Add("View database", subMenu.Show)
         .Add("Exit", () => Environment.Exit(0))
         .Configure(config =>
