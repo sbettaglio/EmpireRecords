@@ -9,6 +9,8 @@ namespace EmpireRecords.Models
     public DbSet<Album> Albums { get; set; }
     public DbSet<Band> Bands { get; set; }
     public DbSet<Song> Songs { get; set; }
+    public DbSet<SongGenre> SongGenres { get; set; }
+    public DbSet<BandStyle> BandStyles { get; set; }
     // Add Database tables here
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace EmpireRecords
 {
@@ -8,9 +9,11 @@ namespace EmpireRecords
     // {
     //     pu
     // }
+
     public void SignBandInput()
     {
       var tracker = new DatabaseTracker();
+      var styles = new List<string>();
       //input all band info
       Console.WriteLine($"What's the band's name?");
       var name = Console.ReadLine();
@@ -23,13 +26,46 @@ namespace EmpireRecords
       var website = Console.ReadLine().ToLower();
       Console.WriteLine($"What kind of style?");
       var style = Console.ReadLine().ToLower();
+      Console.WriteLine($"Does the band have more than one style? y/n");
+      var moreStyles = Console.ReadLine().ToLower();
+      while (moreStyles != "y" && moreStyles != "n")
+      {
+        Console.WriteLine($"Invalid input. Please input (Y) or (N) ");
+        moreStyles = Console.ReadLine().ToLower();
+      }
+      if (moreStyles == "y")
+      {
+        var more = true;
+        while (more)
+        {
+          Console.WriteLine($"Please input another style. once done input (DONE) ");
+          var addAnotherStyle = Console.ReadLine().ToLower();
+          if (addAnotherStyle == "done")
+          {
+            more = false;
+          }
+          else
+          {
+            styles.Add(addAnotherStyle);
+          }
+        }
+      }
       Console.WriteLine($"Who is the primary contact?");
       var personOfContact = Console.ReadLine().ToLower();
       Console.WriteLine($"What is their phone number?");
       var phoneNumber = Console.ReadLine();
       //call method that adds to database
-      tracker.SignBand(name, countryOfOrigin, numberOfMembers, website, style, personOfContact, phoneNumber);
+      tracker.SignBand(name, countryOfOrigin, numberOfMembers, website, personOfContact, phoneNumber);
+      var bandId = tracker.ReturnBandId(name);
+      tracker.UpdateBandStyle(bandId, style);
+      foreach (var s in styles)
+      {
+        tracker.UpdateBandStyle(bandId, s);
+      }
     }
+
+
+
     public void NewRecordInput()
     {
       var tracker = new DatabaseTracker();
@@ -64,7 +100,9 @@ namespace EmpireRecords
       Console.WriteLine($"What's the genre?");
       var genre = Console.ReadLine().ToLower();
       //calls method that adds a new song
-      tracker.NewSong(albumId, songTitle, length, genre, lyrics);
+      tracker.NewSong(albumId, songTitle, length, lyrics);
+      var songId = tracker.ReturnSongId(songTitle);
+      tracker.UpdateSongGenre(songId, genre);
       var moreSongs = true;
       //keeps running and adding songs until the user says not to
       while (moreSongs)
@@ -86,7 +124,8 @@ namespace EmpireRecords
           length = TimeSpan.Parse(Console.ReadLine());
           Console.WriteLine($"What's the genre?");
           genre = Console.ReadLine().ToLower();
-          tracker.NewSong(albumId, songTitle, length, genre, lyrics);
+          tracker.NewSong(albumId, songTitle, length, lyrics);
+          tracker.UpdateSongGenre(songId, genre);
         }
         else if (add == "n")
         {

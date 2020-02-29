@@ -56,7 +56,13 @@ namespace EmpireRecords
       db.Albums.Add(newRecord);
       db.SaveChanges();
     }
-    public void NewSong(int albumId, string songTitle, TimeSpan length, string genre, string lyrics)
+    public int ReturnSongId(string songTitle)
+    {
+      var db = new DatabaseContext();
+      var songId = db.Songs.First(song => song.Title == songTitle);
+      return songId.Id;
+    }
+    public void NewSong(int albumId, string songTitle, TimeSpan length, string lyrics)
     {
       var db = new DatabaseContext();
       var newSong = new Song
@@ -64,12 +70,29 @@ namespace EmpireRecords
         AlbumId = albumId,
         Title = songTitle,
         Length = length,
-        Genre = genre,
         Lyrics = lyrics
       };
       db.Songs.Add(newSong);
       db.SaveChanges();
     }
+    public void UpdateSongGenre(int songID, string genre)
+    {
+      var db = new DatabaseContext();
+      var songGenre = new SongGenre
+      {
+        SongId = songID,
+        Genre = genre
+      };
+      db.SongGenres.Add(songGenre);
+      db.SaveChanges();
+    }
+    // public void CheckGenreExists(string genre)
+    // {
+    //   var db = new DatabaseContext();
+    //   var genreExists = db.SongGenres.Any(g => g.Genre == genre);
+    //   if ()
+
+    // }
 
     public string DuplicateEntry(string name)
     {
@@ -84,7 +107,9 @@ namespace EmpireRecords
       }
       return name;
     }
-    public void SignBand(string name, string countryOfOrigin, int numberOfMembers, string website, string style, string personOfContact, string phoneNumber)
+
+
+    public void SignBand(string name, string countryOfOrigin, int numberOfMembers, string website, string personOfContact, string phoneNumber)
     {
       var db = new DatabaseContext();
       var newBand = new Band
@@ -93,12 +118,22 @@ namespace EmpireRecords
         CountryOfOrigin = countryOfOrigin,
         NumberOfMembers = numberOfMembers,
         Website = website,
-        Style = style,
         PersonOfContact = personOfContact,
         PhoneNumber = phoneNumber,
         IsSigned = true
       };
       db.Bands.Add(newBand);
+      db.SaveChanges();
+    }
+    public void UpdateBandStyle(int bandId, string style)
+    {
+      var db = new DatabaseContext();
+      var bandStyle = new BandStyle
+      {
+        BandId = bandId,
+        Style = style
+      };
+      db.BandStyles.Add(bandStyle);
       db.SaveChanges();
     }
     public void FireBand(string name)
@@ -177,7 +212,7 @@ namespace EmpireRecords
       var displaySongs = db.Songs.Where(song => song.AlbumId == albumId);
       foreach (var s in displaySongs)
       {
-        Console.WriteLine($"{s.Title}, length:{s.Length}, genre: {s.Genre}, catchiest lyric: {s.Lyrics} ");
+        Console.WriteLine($"{s.Title}, length:{s.Length}, genre:, catchiest lyric: {s.Lyrics} ");
       }
       Console.WriteLine("Press enter to exit");
       Console.ReadLine();

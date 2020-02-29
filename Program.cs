@@ -24,7 +24,7 @@ namespace EmpireRecords
         {
           config.Selector = "--> ";
           config.EnableFilter = true;
-          config.Title = "Submenu";
+          config.Title = "Empire Records Database";
           config.EnableBreadcrumb = true;
           config.WriteBreadcrumbAction = titles => Console.WriteLine(string.Join(" / ", titles));
         });
@@ -39,7 +39,7 @@ namespace EmpireRecords
         {
           config.Selector = "--> ";
           config.EnableFilter = true;
-          config.Title = "Main menu";
+          config.Title = "Empire Records";
           config.EnableWriteTitle = true;
           config.EnableBreadcrumb = true;
         });

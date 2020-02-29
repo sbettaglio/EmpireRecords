@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace EmpireRecords.Models
 {
@@ -8,8 +9,9 @@ namespace EmpireRecords.Models
     public string Title { get; set; }
     public string Lyrics { get; set; }
     public TimeSpan Length { get; set; }
-    public string Genre { get; set; }
+    // public string Genre { get; set; }
     public int AlbumId { get; set; }
     public Album Album { get; set; }
+    public List<SongGenre> SongGenres { get; set; } = new List<SongGenre>();
   }
 }
