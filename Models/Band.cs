@@ -15,6 +15,7 @@ namespace EmpireRecords.Models
     public string PhoneNumber { get; set; }
     public List<Album> Albums { get; set; } = new List<Album>();
     public List<BandStyle> BandStyles { get; set; } = new List<BandStyle>();
+    public List<BandMusician> BandMusicians { get; set; } = new List<BandMusician>();
 
   }
 }
