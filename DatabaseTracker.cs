@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using EmpireRecords.Models;
+using System.Collections.Generic;
 
 namespace EmpireRecords
 {
@@ -261,8 +262,46 @@ namespace EmpireRecords
       Console.WriteLine("Press enter to exit");
       Console.ReadLine();
     }
+    public void DisplayGenres()
+    {
+      var db = new DatabaseContext();
+      var genres = db.SongGenres.First(ge => ge.Genre);
+      foreach (var g in genres)
+      {
+        Console.WriteLine($"|-------------|");
+        Console.WriteLine($"|  {g.Genre}  |");
+        Console.WriteLine($"|-------------|");
+      }
 
+    }
+    public List<int> GetSongIdList(string genre)
+    {
+      var db = new DatabaseContext();
+      var songGenre = db.SongGenres.Where(song => song.Genre == genre);
+      var songIds = new List<int>();
+      foreach (var s in songGenre)
+      {
+        songIds.Add(s.SongId);
 
+      }
+      return songIds;
+    }
+    public List<int> GetAlbumListFromSongIdList(List<int> songIds)
+    {
+      var db = new DatabaseContext();
+      var albumIdList = new List<int>();
+      foreach (var a in songIds)
+      {
+        Console.WriteLine($"{a} ");
+      }
+    }
   }
 }
+
+
+
+
+
+
+
 

@@ -19,6 +19,7 @@ namespace EmpireRecords
         .Add("An album with all it's songs", () => user.SongsInAlbumInput())
         .Add("Signed Bands", () => tracker.SignedBandList())
         .Add("Bands not signed", () => tracker.UnSignedBandList())
+        .Add("Albums in a genre", () => user.ViewAlbumsInAGenre())
         .Add("Sub_Close", ConsoleMenu.Close)
     .Configure(config =>
         {
