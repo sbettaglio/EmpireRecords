@@ -265,7 +265,7 @@ namespace EmpireRecords
     public void DisplayGenres()
     {
       var db = new DatabaseContext();
-      var genres = db.SongGenres.First(ge => ge.Genre);
+      var genres = db.SongGenres;
       foreach (var g in genres)
       {
         Console.WriteLine($"|-------------|");
@@ -292,7 +292,18 @@ namespace EmpireRecords
       var albumIdList = new List<int>();
       foreach (var a in songIds)
       {
-        Console.WriteLine($"{a} ");
+        var albumIds = db.Songs.First(song => song.Id == a);
+        albumIdList.Add(albumIds.AlbumId);
+      }
+      return albumIdList;
+    }
+    public void DisplayAlbumGenres(List<int> albumIdList, string genre)
+    {
+      var db = new DatabaseContext();
+      foreach (var a in albumIdList)
+      {
+        var albumTitle = db.Albums.First(al => al.Id == a);
+        Console.WriteLine($"{albumTitle.Title}");
       }
     }
   }

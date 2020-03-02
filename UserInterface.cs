@@ -257,11 +257,13 @@ namespace EmpireRecords
     {
       var tracker = new DatabaseTracker();
       Console.WriteLine($"Song genres in our system");
-      tracker.DisplayGenres();
+
       Console.WriteLine($"Which genre do you want to see an album list for?");
       var genre = Console.ReadLine().ToLower();
       var songIds = tracker.GetSongIdList(genre);
-      tracker.GetAlbumListFromSongIdList(songIds);
+      var albumIdList = tracker.GetAlbumListFromSongIdList(songIds);
+      tracker.DisplayAlbumGenres(albumIdList, genre);
+      Console.ReadLine();
     }
 
 
